@@ -55,7 +55,7 @@ namespace Jwt
         /// <returns>The generated JWT.</returns>
         public static string Encode(JwtData data)
         {
-            var header = new Dictionary<string, object>(data.ExtraHeaders)
+            var header = new Dictionary<string, object>(data.ExtraHeaders ?? new Dictionary<string, object>())
                          {
                              { "typ", "JWT" },
                              { "alg", data.Algorithm.ToString() }
