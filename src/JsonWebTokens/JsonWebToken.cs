@@ -85,7 +85,7 @@ namespace Jwt
         }
 
         /// <summary>
-        /// Given a JWT, decode it and return the JSON payload.
+        /// Decodes the specified JWT and returns the JSON payload.
         /// </summary>
         /// <param name="token">The JWT.</param>
         /// <param name="key">The key that was used to sign the JWT.</param>

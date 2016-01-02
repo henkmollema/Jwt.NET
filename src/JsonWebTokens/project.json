@@ -1,7 +1,7 @@
 ﻿{
   "version": "1.0.1",
   "title": "Jwt.NET",
-  "description": "JSON Web Tokens implementation for .NET",
+  "description": "JSON Web Tokens implementation for .NET.",
   "authors": [ "Henk Mollema" ],
   "owners": [ "Henk Mollema" ],
   "tags": [ "jwt", "tokens", ".net" ],
