@@ -1,5 +1,5 @@
 ﻿{
-  "version": "1.0.0",
+  "version": "1.0.1",
   "title": "Jwt.NET",
   "description": "JSON Web Tokens implementation for .NET",
   "authors": [ "Henk Mollema" ],
@@ -10,7 +10,7 @@
   "copyright": "Copyright 2016 Henk Mollema",
 
   "dependencies": {
-    "Newtonsoft.Json": "8.0.1"
+    "Newtonsoft.Json": "7.0.1"
   },
 
   "frameworks": {
