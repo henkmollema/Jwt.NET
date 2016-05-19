@@ -1,5 +1,13 @@
 # Jwt.NET
-JSON Web Tokens implementation for .NET (including CoreCLR).
+JSON Web Tokens implementation for .NET Core.
+
+<hr>
+
+| Windows | Linux | OS X |
+| --- | --- | --- |
+| [![Build status](https://ci.appveyor.com/api/projects/status/kr49ieh4vp3c9cxt?svg=true)](https://ci.appveyor.com/project/henkmollema/jwt-net) | [![Build Status](https://travis-ci.org/henkmollema/Jwt.NET.svg)](https://travis-ci.org/henkmollema/Jwt.NET) | [![Build Status](https://travis-ci.org/henkmollema/Jwt.NET.svg)](https://travis-ci.org/henkmollema/Jwt.NET) |
+
+--
 
 ## Installation
  Jwt.NET is avaiable on [NuGet](https://www.nuget.org/packages/JsonWebTokens).
