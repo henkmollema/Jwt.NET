@@ -1,7 +1,6 @@
 [Oo]bj/
 [Bb]in/
 .nuget/
-packages/
 artifacts/
 .vs/
 debugSettings.json
@@ -9,3 +8,4 @@ project.lock.json
 *.user
 *.suo
 nuget.exe
+.build/
