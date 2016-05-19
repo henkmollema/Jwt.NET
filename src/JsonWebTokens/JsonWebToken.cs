@@ -5,13 +5,6 @@ using System.Text;
 
 namespace Jwt
 {
-    public enum JwtHashAlgorithm
-    {
-        HS256,
-        HS384,
-        HS512
-    }
-
     /// <summary>
     /// Provides methods for encoding and decoding JSON Web Tokens.
     /// </summary>
@@ -303,7 +296,7 @@ namespace Jwt
             }
         }
 
-        public static string Base64UrlEncode(byte[] input)
+        private static string Base64UrlEncode(byte[] input)
         {
             var output = Convert.ToBase64String(input);
             output = output.Split('=')[0]; // Remove any trailing '='s
@@ -312,7 +305,7 @@ namespace Jwt
             return output;
         }
 
-        public static byte[] Base64UrlDecode(string input)
+        private static byte[] Base64UrlDecode(string input)
         {
             var output = input;
             output = output.Replace('-', '+'); // 62nd char of encoding
