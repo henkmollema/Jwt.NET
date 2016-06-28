@@ -1,6 +1,6 @@
 ﻿{
   "version": "1.2.0",
-  "title": "Jwt.NET",
+  "title": "JsonWebTokens",
   "authors": [ "Henk Mollema" ],
   "copyright": "Copyright 2016 Henk Mollema",
   "description": "JSON Web Tokens implementation for .NET Core.",
@@ -27,7 +27,6 @@
     "net451": { },
     "netstandard1.3": {
       "dependencies": {
-        "Microsoft.CSharp": "4.0.1",
         "System.Security.Cryptography.Algorithms": "4.2.0"
       }
     }
