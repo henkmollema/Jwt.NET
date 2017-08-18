@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <Description>JSON Web Tokens implementation for .NET Core.</Description>
+    <Copyright>Copyright 2017 Henk Mollema</Copyright>
+    <VersionPrefix>2.0.0</VersionPrefix>
+    <Authors>Henk Mollema</Authors>
+    <TargetFrameworks>netstandard1.3</TargetFrameworks>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <AssemblyName>JsonWebTokens</AssemblyName>
+    <PackageId>JsonWebTokens</PackageId>
+    <PackageTags>jwt;tokens;jsonwebtoken;.net;net;core</PackageTags>
+    <PackageProjectUrl>https://github.com/henkmollema/Jwt.NET</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/henkmollema/Jwt.NET/blob/master/LICENSE</PackageLicenseUrl>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>git://github.com/henkmollema/Jwt.NET</RepositoryUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+  </ItemGroup>
+</Project>
