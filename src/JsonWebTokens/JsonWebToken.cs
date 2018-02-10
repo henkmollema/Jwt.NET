@@ -233,7 +233,7 @@ namespace Jwt
             // Compare the signature from the JWT and the computed signature.
             if (jwtSignature != computedSignature)
             {
-                throw new SignatureVerificationException($"Invalid signature. Expected '{jwtSignature}' got '{computedSignature}'.");
+                throw new SignatureVerificationException("Invalid JWT signature.");
             }
 
             // Verify exp claim: https://tools.ietf.org/html/draft-ietf-oauth-json-web-token-32#section-4.1.4
