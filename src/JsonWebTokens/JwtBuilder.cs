@@ -95,9 +95,12 @@ namespace Jwt
         /// Builds the data to a <see cref="JwtData"/> object.
         /// </summary>
         /// <returns>A <see cref="JwtData"/> object.</returns>
-        public JwtData Build()
-        {
-            return _data;
-        }
+        public JwtData Build() => _data;
+
+        /// <summary>
+        /// Builds and encodes the current <see cref="JwtBuilder"/> object.
+        /// </summary>
+        /// <returns>An encoded JSON Web Token.</returns>
+        public string Encode() => JsonWebToken.Encode(Build());
     }
 }
