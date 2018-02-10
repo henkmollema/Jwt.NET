@@ -1,7 +1,7 @@
 namespace Jwt
 {
     /// <summary>
-    /// Represents the hashing algorithm being used used.
+    /// Specifies the hashing algorithm being used used.
     /// </summary>
     public enum JwtHashAlgorithm
     {
@@ -11,12 +11,12 @@ namespace Jwt
         HS256,
 
         /// <summary>
-        /// Hash-based Message Authentication Code (HMAC) using SHA256.
+        /// Hash-based Message Authentication Code (HMAC) using SHA384.
         /// </summary>
         HS384,
 
         /// <summary>
-        /// Hash-based Message Authentication Code (HMAC) using SHA256.
+        /// Hash-based Message Authentication Code (HMAC) using SHA512.
         /// </summary>
         HS512
     }
