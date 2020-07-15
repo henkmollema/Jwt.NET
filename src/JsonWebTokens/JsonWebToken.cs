@@ -10,12 +10,13 @@ namespace Jwt
     /// </summary>
     public static class JsonWebToken
     {
+        private static readonly DateTime UnixEpoch = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
+        private static readonly char[] Padding = new[] { '=' };
+
         /// <summary>
         /// Gets or sets the <see cref="IJsonSerializer"/> implementation being used.
         /// </summary>
         public static IJsonSerializer JsonSerializer = new DefaultJsonSerializer();
-
-        private static readonly DateTime UnixEpoch = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
 
         /// <summary>
         /// Creates a JWT using the specified payload and key hashed with <see cref="JwtHashAlgorithm.HS256 "/>.
@@ -63,19 +64,19 @@ namespace Jwt
         public static string Encode(JwtData data)
         {
             var header = new Dictionary<string, object>(data.ExtraHeaders ?? new Dictionary<string, object>())
-                         {
-                             { "typ", "JWT" },
-                             { "alg", data.Algorithm.ToString() }
-                         };
+            {
+                { "typ", "JWT" },
+                { "alg", data.Algorithm.ToString() }
+            };
 
             var headerBytes = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(header));
             var payloadBytes = Encoding.UTF8.GetBytes(data.Serialized ? (string)data.Payload : JsonSerializer.Serialize(data.Payload));
 
             var segments = new List<string>
-                           {
-                               Base64UrlEncode(headerBytes),
-                               Base64UrlEncode(payloadBytes)
-                           };
+            {
+                Base64UrlEncode(headerBytes),
+                Base64UrlEncode(payloadBytes)
+            };
 
             var bytesToSign = Encoding.UTF8.GetBytes(string.Join(".", segments));
 
@@ -261,60 +262,34 @@ namespace Jwt
 
         private static byte[] ComputeHash(JwtHashAlgorithm algorithm, byte[] key, byte[] value)
         {
-            HashAlgorithm hashAlgorithm;
-            switch (algorithm)
+            var hashAlgorithm = algorithm switch
             {
-                case JwtHashAlgorithm.HS256:
-                    hashAlgorithm = new HMACSHA256(key);
-                    break;
-                case JwtHashAlgorithm.HS384:
-                    hashAlgorithm = new HMACSHA384(key);
-                    break;
-                case JwtHashAlgorithm.HS512:
-                    hashAlgorithm = new HMACSHA512(key);
-                    break;
-                default:
-                    throw new Exception($"Unsupported hash algorithm: '{algorithm}'.");
-            }
-
+                JwtHashAlgorithm.HS256 => (HashAlgorithm)new HMACSHA256(key),
+                JwtHashAlgorithm.HS384 => new HMACSHA384(key),
+                JwtHashAlgorithm.HS512 => new HMACSHA512(key),
+                _ => throw new Exception($"Unsupported hash algorithm: '{algorithm}'."),
+            };
             using (hashAlgorithm)
             {
                 return hashAlgorithm.ComputeHash(value);
             }
         }
 
-        private static JwtHashAlgorithm GetHashAlgorithm(string algorithm)
+        private static JwtHashAlgorithm GetHashAlgorithm(string algorithm) => algorithm switch
         {
-            switch (algorithm)
-            {
-                case "HS256":
-                    return JwtHashAlgorithm.HS256;
-                case "HS384":
-                    return JwtHashAlgorithm.HS384;
-                case "HS512":
-                    return JwtHashAlgorithm.HS512;
-                default:
-                    throw new SignatureVerificationException($"Algorithm '{algorithm}' not supported.");
-            }
-        }
+            "HS256" => JwtHashAlgorithm.HS256,
+            "HS384" => JwtHashAlgorithm.HS384,
+            "HS512" => JwtHashAlgorithm.HS512,
+            _ => throw new SignatureVerificationException($"Algorithm '{algorithm}' not supported."),
+        };
 
-        private static readonly char[] _padding = new [] { '=' };
+        private static string Base64UrlEncode(byte[] input) =>
+            Convert.ToBase64String(input)
+                .TrimEnd(Padding) // Remove any trailing '='s
+                .Replace('+', '-') // 62nd char of encoding
+                .Replace('/', '_'); // 63rd char of encoding
 
-        private static string Base64UrlEncode(byte[] input)
-        {
-            var output = Convert.ToBase64String(input);
-            output = output.TrimEnd(_padding); // Remove any trailing '='s
-            output = output.Replace('+', '-'); // 62nd char of encoding
-            output = output.Replace('/', '_'); // 63rd char of encoding
-            return output;
-        }
-
-        private static byte[] Base64UrlDecode(string input)
-        {
-            var output = UrlDecode(input);
-            var converted = Convert.FromBase64String(output);
-            return converted;
-        }
+        private static byte[] Base64UrlDecode(string input) => Convert.FromBase64String(UrlDecode(input));
 
         private static string UrlDecode(string input)
         {
